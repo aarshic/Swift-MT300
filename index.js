@@ -160,6 +160,7 @@ new Promise((resolve, reject) => {
         var fields = '';
         var fieldnms = '';
         var qs = '';
+        console.log("Begin");
         context.headers.forEach(hdr => {
             hdr = hdr.replace(' ', '_');
             if (fields !== '') fields += ',';
@@ -178,6 +179,8 @@ new Promise((resolve, reject) => {
             if (err) reject(err);
             else resolve(context);
         })
+        console.log("done");
+
     });
 })
 .then(context => {
