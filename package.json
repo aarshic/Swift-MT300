@@ -4,21 +4,35 @@
   "description": "Swift MT-300",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "csv": "^5.1.1",
+    "csv-headers": "^1.0.0",
+    "csv-parse": "^4.3.4",
+    "csv-parser": "^2.2.0",
     "eol": "^0.9.1",
+    "es6-promise": "^4.2.6",
+    "excel4node": "^1.7.0",
     "express": "^4.16.4",
+    "fast-csv": "^2.4.1",
     "http": "0.0.0",
+    "isomorphic-fetch": "^2.2.1",
+    "json": "^9.0.6",
+    "mongoose": "^5.4.19",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.10",
     "parser": "^0.1.4",
     "request": "^2.88.0",
     "require": "^2.4.20",
+    "stream-transform": "^1.0.8",
     "swift-mock": "0.0.23",
-    "swift-parser": "^0.1.2"
+    "swift-parser": "^0.1.2",
+    "util": "^0.11.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
   "scripts": {
     "start": "node index.js",
-    // "server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
