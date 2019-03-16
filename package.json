@@ -1,0 +1,34 @@
+{
+  "name": "swift",
+  "version": "1.0.0",
+  "description": "Swift MT-300",
+  "main": "index.js",
+  "dependencies": {
+    "eol": "^0.9.1",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.10",
+    "parser": "^0.1.4",
+    "request": "^2.88.0",
+    "require": "^2.4.20",
+    "swift-mock": "0.0.23",
+    "swift-parser": "^0.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    // "server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aarshic/Swift-MT300.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aarshic/Swift-MT300/issues"
+  },
+  "homepage": "https://github.com/aarshic/Swift-MT300#readme"
+}
