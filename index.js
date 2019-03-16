@@ -73,20 +73,20 @@ con.connect(function(err){
 
 
 // Require library
-var xl = require('excel4node');
+// var xl = require('excel4node');
  
 // Create a new instance of a Workbook class
-var wb = new xl.Workbook();
+// var wb = new xl.Workbook();
  
 
 // Add Worksheets to the workbook
-var ws = wb.addWorksheet('SG Proposed Data for Sampling');
-var ws2 = wb.addWorksheet('Sheet 2');
+// var ws = wb.addWorksheet('SG Proposed Data for Sampling');
+// var ws2 = wb.addWorksheet('Sheet 2');
 
 
 var xlsx = require('node-xlsx');
 // var fs = require('fs');
-var obj = xlsx.parse(__dirname + '/Sample_data/ProposedDataforSampleData/ProposedDataforSample.xlsx'); // parses a file
+var obj = xlsx.parse(__dirname + '/NewSampleData_930PM/one_to_one/Sample/SG_one_to_one/sg.xlsx'); // parses a file
 // onj = obj.sheet('SG Proposed Data for Sampling');
 var rows = [];
 var writeStr = "";
@@ -107,7 +107,7 @@ fs.writeFile(__dirname + "/test.csv", writeStr, function(err) {
     console.log("test.csv was saved in the current directory!");
 });
 
-var obj1 = xlsx.parse(__dirname + '/Sample_data/ProposedDataforSampleData/Server.xlsx'); // parses a file
+var obj1 = xlsx.parse(__dirname + '/NewSampleData_930PM/one_to_one/Sample/Client_one_to_one/client.xlsx'); // parses a file
 // onj = obj.sheet('SG Proposed Data for Sampling');
 var rows = [];
 var writeStr = "";
@@ -132,10 +132,10 @@ fs.writeFile(__dirname + "/test1.csv", writeStr, function(err) {
 
 var csvfn = 'test.csv';
 var dbnm = 'swift';
-var tblnm = 'Fr';
+var tblnm = 'Fa';
 var csvf = 'test1.csv';
 var dbn = 'swift';
-var tbln = 'Fr4';
+var tbln = 'Fa4';
 
 new Promise((resolve, reject) => {
     csvHeaders({
@@ -182,11 +182,13 @@ new Promise((resolve, reject) => {
         context.headers.forEach(hdr => {
             hdr = hdr.replace(' ', '_');
             hdr = hdr.replace(':', 'a');
+            // console.log(hdr);
             if (fields !== '') fields += ',';
             if (fieldnms !== '') fieldnms += ','
             if (qs !== '') qs += ',';
             fields += `${hdr} VARCHAR(255)`;
             fieldnms += `${hdr}`;
+            // console.log(fieldnms);
             qs += ' ?';
         });
         context.qs = qs;
@@ -287,6 +289,7 @@ new Promise((resolve, reject) => {
         context.headers.forEach(hdr => {
             hdr = hdr.replace(' ', '_');
             hdr = hdr.replace(':', 'a');
+            // console.log(hdr);
             if (fields !== '') fields += ',';
             if (fieldnms !== '') fieldnms += ','
             if (qs !== '') qs += ',';
@@ -375,47 +378,110 @@ new Promise((resolve, reject) => {
 
 
 
-function function1() {
-    // stuff you want to happen right away
-    // console.log('Welcome to My Console,');
-}
+function function1() {}
 function function2() {
-    // all the stuff you want to happen after that pause
-    con.query('SELECT a82A, a87A FROM Fr', function(err, results) {
+    con.query('SELECT a82A, a87A, a77H, a30T, a30V, a36, a32B, a57A, a33B, a30V, a56, a57D, a58A, a24D FROM Fa', function(err, results) {
         if(err){
             console.log(err);
         }
         else{
-            console.log(results);
+            // console.log(results);
+            con.query('SELECT a82A, a87A, a77H, a30T, a30V, a36, a32B, a57A, a33B, a30V, a56, a57D, a58A, a24D FROM Fa4', function(err1, results1) {
+                if(err1){
+                    console.log(err1);
+                }
+                else{
+                    // console.log(results1);
+                    // var obj = JSON.parse(data);
+                    // var obj1 = JSON.parse(results);
+                    // var obj2 = JSON.parse(results1);
+                    var obj1 = results;
+                    var obj2 = results1;
+
+                    var flag=true;
+                    var count=0;
+                    var miscount=0;
+                    // console.log("reached");    
+                    // console.log(obj1[0]);
+                    // console.log(obj2[0]);
+                    // if(Object.keys(obj1).length==Object.keys(obj2).length){
+                    for(var i=0; i<obj1.length; i++){
+                        for(var j=0; j<obj2.length; j++){
+                            // console.log("reached");
+                            if(JSON.stringify(obj1[i].a82A) == JSON.stringify(obj2[j].a87A)) {
+                                // console.log("reached");
+                                if(JSON.stringify(obj1[i].a87A) == JSON.stringify(obj2[j].a82A)) {
+                                    // console.log("reached");
+                                    if(JSON.stringify(obj1[i].a77H) == JSON.stringify(obj2[j].a77H)) {
+                                        // console.log("reached");
+                                        if(JSON.stringify(obj1[i].a30T) == JSON.stringify(obj2[j].a30T)) {                                       
+                                            // console.log("reached");
+                                            if(JSON.stringify(obj1[i].a57A) == JSON.stringify(obj2[j].a57A)) {
+                                                // console.log("reached");
+                                                if(JSON.stringify(obj1[i].a56) == JSON.stringify(obj2[j].a56)) {
+                                                    // console.log("reached");
+                                                    if(JSON.stringify(obj1[i].a57D) == JSON.stringify(obj2[j].a57D)) {
+                                                        // console.log("reached");
+                                                        if(JSON.stringify(obj1[i].a58A) == JSON.stringify(obj2[j].a58A)) {
+                                                            // console.log("reached");
+                                                            if(JSON.stringify(obj1[i].a30V) == JSON.stringify(obj2[j].a30V)) {                                       
+                                                                if(JSON.stringify(obj1[i].a36) == JSON.stringify(obj2[j].a36)) {                                                    
+                                                                    if(JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a33B)) {
+                                                                        if(JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a32B)) {
+                                                                            // console.log("reached");
+                                                                            count++;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for(var i=0; i<obj1.length; i++){
+                        for(var j=0; j<obj2.length; j++){
+                            if(JSON.stringify(obj1[i].a82A) == JSON.stringify(obj2[j].a87A)) {
+                                if(JSON.stringify(obj1[i].a87A) == JSON.stringify(obj2[j].a82A)) {
+                                    if(JSON.stringify(obj1[i].a77H) == JSON.stringify(obj2[j].a77H)) {
+                                        if(JSON.stringify(obj1[i].a30T) == JSON.stringify(obj2[j].a30T)) {                                       
+                                            if(JSON.stringify(obj1[i].a57A) == JSON.stringify(obj2[j].a57A)) {
+                                                if(JSON.stringify(obj1[i].a56) == JSON.stringify(obj2[j].a56)) {
+                                                    if(JSON.stringify(obj1[i].a57D) == JSON.stringify(obj2[j].a57D)) {
+                                                        if(JSON.stringify(obj1[i].a58A) == JSON.stringify(obj2[j].a58A)) {
+                                                            if(((JSON.stringify(obj1[i].a30V) == JSON.stringify(obj2[j].a30V)) && (JSON.stringify(obj1[i].a36) == JSON.stringify(obj2[j].a36))) || ((JSON.stringify(obj1[i].a30V) == JSON.stringify(obj2[j].a30V)) && (JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a32B))) || ((JSON.stringify(obj1[i].a30V) == JSON.stringify(obj2[j].a30V)) && (JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a33B))) || ((JSON.stringify(obj1[i].a36) == JSON.stringify(obj2[j].a36)) && (JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a32B))) || ((JSON.stringify(obj1[i].a36) == JSON.stringify(obj2[j].a36)) && (JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a33B))) || ((JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a32B)) && (JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a33B))) || ((JSON.stringify(obj1[i].a30V) == JSON.stringify(obj2[j].a30V)) && (JSON.stringify(obj1[i].a36) == JSON.stringify(obj2[j].a36)) && (JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a32B))) || ((JSON.stringify(obj1[i].a30V) == JSON.stringify(obj2[j].a30V)) && (JSON.stringify(obj1[i].a36) == JSON.stringify(obj2[j].a36)) && (JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a33B))) || ((JSON.stringify(obj1[i].a30V) == JSON.stringify(obj2[j].a30V)) && (JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a32B)) && (JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a33B))) || ((JSON.stringify(obj1[i].a36) == JSON.stringify(obj2[j].a36)) && (JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a32B)) && (JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a33B)))) {
+                                                                miscount++;
+                                                                break;
+                                                            }
+                                                            // if(((JSON.stringify(obj1[i].a32B) == JSON.stringify(obj2[j].a32B)) && (JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a33B)))){
+                                                            //     miscount++;
+                                                            // }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    var z = Object.keys(obj1).length
+                    z = z-miscount-count;
+                    console.log("is object equal " + flag + " count=" + count + " miscount=" + miscount + " unmatched=" + z);
+                }
+            });
         }
     });
 }
-// call the first chunk of code right away
 function1();
-// call the rest of the code and have it execute after 3 seconds
-setTimeout(function2, 20000);
-
-
-
-
-
-// var myInt = setInterval(function () {
-//     // console.log("Hello");
-// }, 500);
-
-// con.query('SELECT a82A, a87A FROM Fr', function(err, results) {
-//     if(err){
-//         console.log(err);
-//     }
-//     else{
-//         console.log(results);
-//     }
-// });
-
-
-
-
-
+setTimeout(function2, 15000);
 
 
 
