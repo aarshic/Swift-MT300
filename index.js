@@ -1,19 +1,14 @@
 'use strict';
 var async = require('async');
 const parse = require('csv-parse/lib/es5');
-// const fs = require('fs');
-var http = require('http');
 var express = require('express');
-var request = require('request');
-// var SwiftParser = require('swift-parser').SwiftParser;
 var mysql = require('mysql');
 var fs = require('fs');
 const util = require('util');
 const csvHeaders = require('csv-headers');
 const app=express();
-const mongoose=require("mongoose");
+
 const bodyParser=require('body-parser');
-// var parser = new SwiftParser();
 
 var con = mysql.createConnection({
     host: 'localhost',
@@ -30,7 +25,7 @@ con.connect(function(err){
 });
 
 var xlsx = require('node-xlsx');
-var obj = xlsx.parse(__dirname + '/NewSampleData_930PM/one_to_one/Sample/SG_one_to_one/sg.xlsx'); // parses a file
+var obj = xlsx.parse(__dirname + '/NewSampleData_930PM/one_to_one/Sample/SG_one_to_one/sg.xlsx'); 
 var rows = [];
 var writeStr = "";
 
@@ -52,7 +47,7 @@ fs.writeFile(__dirname + "/test.csv", writeStr, function(err) {
     console.log("test.csv was saved in the current directory!");
 });
 
-var obj1 = xlsx.parse(__dirname + '/NewSampleData_930PM/one_to_one/Sample/Client_one_to_one/client.xlsx'); // parses a file
+var obj1 = xlsx.parse(__dirname + '/NewSampleData_930PM/one_to_one/Sample/Client_one_to_one/client.xlsx');
 var rows = [];
 var writeStr = "";
 
@@ -79,7 +74,7 @@ var dbnm = 'swift';
 var tblnm = 'Fe';
 var csvf = 'test1.csv';
 var dbn = 'swift';
-var tbln = 'Fes4';
+var tbln = 'Fe4';
 
 new Promise((resolve, reject) => {
     csvHeaders({
@@ -126,13 +121,11 @@ new Promise((resolve, reject) => {
         context.headers.forEach(hdr => {
             hdr = hdr.replace(' ', '_');
             hdr = hdr.replace(':', 'a');
-            // console.log(hdr);
             if (fields !== '') fields += ',';
             if (fieldnms !== '') fieldnms += ','
             if (qs !== '') qs += ',';
             fields += `${hdr} VARCHAR(255)`;
             fieldnms += `${hdr}`;
-            // console.log(fieldnms);
             qs += ' ?';
         });
         context.qs = qs;
@@ -152,7 +145,6 @@ new Promise((resolve, reject) => {
             columns: true,
             relax_column_count: true
         }, (err, data) => {
-            // console.log(data);  
             if (err) return reject(err);
             async.eachSeries(data, (datum, next) => {
                 var d = [];
@@ -233,7 +225,6 @@ new Promise((resolve, reject) => {
         context.headers.forEach(hdr => {
             hdr = hdr.replace(' ', '_');
             hdr = hdr.replace(':', 'a');
-            // console.log(hdr);
             if (fields !== '') fields += ',';
             if (fieldnms !== '') fieldnms += ','
             if (qs !== '') qs += ',';
@@ -258,7 +249,6 @@ new Promise((resolve, reject) => {
             columns: true,
             relax_column_count: true
         }, (err, data) => {
-            // console.log(data);  
             if (err) return reject(err);
             async.eachSeries(data, (datum, next) => {
                 var d = [];
@@ -275,7 +265,6 @@ new Promise((resolve, reject) => {
                         if (err) { console.error(err); next(err); }
                         else setTimeout(() => { next(); });
                     });
-                    // console.log("second");
                 } else { console.log(`empty row ${util.inspect(datum)} ${util.inspect(d)}`); next(); }
             },
             err => {
@@ -295,9 +284,6 @@ new Promise((resolve, reject) => {
 
 app.use(bodyParser.json());
 
-// request.get('http://localhost:3000', (err, res, data)=>{
-// });
-
 app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => {
@@ -305,13 +291,6 @@ app.get("/", (req, res) => {
     var count=0;
     var miscount=0;
     var y=0;
-    // var y=new Promise((resolve, reject) => {
-    //     function(err, response){
-    //         if (err) reject(err);
-    //         else resolve({ response });
-    
-    //     };
-    // })
     var g=[];
     var h=[];
     var data=[];
@@ -323,7 +302,6 @@ app.get("/", (req, res) => {
                 console.log(err);
             }
             else{
-                // console.log(results);
                 con.query('SELECT a82A, a87A, a77H, a30T, a30V, a36, a32B, a57A, a33B, a30V, a56, a57D, a58A, a24D FROM Fe4', function(err1, results1) {
                     if(err1){
                         console.log(err1);
@@ -331,9 +309,6 @@ app.get("/", (req, res) => {
                     else{
                         var obj1 = results;
                         var obj2 = results1;
-
-                        // var flag=true;
-                        
                         for(var i=0; i<obj1.length; i++){
                             for(var j=0; j<obj2.length; j++){
                                 if(JSON.stringify(obj1[i].a82A) == JSON.stringify(obj2[j].a87A)) {
@@ -350,9 +325,7 @@ app.get("/", (req, res) => {
                                                                             if(JSON.stringify(obj1[i].a33B) == JSON.stringify(obj2[j].a32B)) {
                                                                                 count++;
                                                                                 break;
-                                }   }   }   }   }   }   }   }   }   }   }   }
-                            }
-                        }
+                        }   }   }   }   }   }   }   }   }   }   }   }   }   }
                         for(var i=0; i<obj1.length; i++){
                             for(var j=0; j<obj2.length; j++){
                                 if(JSON.stringify(obj1[i].a82A) == JSON.stringify(obj2[j].a87A)) {
@@ -367,37 +340,13 @@ app.get("/", (req, res) => {
                                                                     miscount++;
                                                                     g.push(i);
                                                                     h.push(j);
-                                                                    // console.log(g);
-                                                                    // console.log(h);
-                                                                    // var total = y+miscount+count;
-                                                                    // data = [{matched: count, mismatched: miscount, unmatched: y, total: total}]
-                                                                    // res.render('index', {matched: count, mismatched: miscount, unmatched: y, total: total, obj1: obji[i], obj2: obj2[j]});
                                                                     break;
-                                }   }   }   }   }   }   }   }   }   
-                            }
-                        }
+                        }   }   }   }   }   }   }   }   }   }   }   
                         var z = Object.keys(obj1).length
                         z = z-miscount-count;
                         y = z;
                         var total = y+miscount+count;
-                        var l;
-                        var w = function (l, callback) {
-                            if (!l){
-                                return callback(new Error(
-                                'No user matching '
-                                    + l
-                                )
-                                );
-                            }
-                            l[0]=count;
-                            l[1]=miscount;
-                            l[2]=z;
-                            return callback(null, l);
-                        };
-
-                        console.log("Count=" + count + " Miscount/Closefit=" + miscount + " Unmatched=" + z);
-                        // res.status(200).send({});
-                        // res.status(200).send({matched: count, mismatched: miscount, unmatched: y, total: total, ob1: obj1[0], ob2: obj2[0]});
+                        console.log("Matched=" + count + " Miscount/Closefit=" + miscount + " Unmatched=" + z);
                     }
                 });
             }
@@ -406,28 +355,8 @@ app.get("/", (req, res) => {
     function1();
     setTimeout(function2, 1000);
     y=10-miscount-count;
-    // var total = m[0]+m[1]+m[2];
-    var l;
-    var total;
-    var w = function(){};
-    w(l, function(error, m) {
-        if (error) return next(error);
-        console.log(m[2]);
-        var total = m[0]+m[1]+m[2];    
-        return response.render('index', {matched: m[0], mismatched: m[1], unmatched: m[2], total: total});
-      });
-    // var e = function processData() {   
-    //     let data = fetchDataInAFarAwayAndMysticDatabase();   
-    //     data += 1;   
-    //     return data; 
-    // }
-    
-    
-    // console.log(y);
-    // for(var t=0; t<g.length; t++){
-        // console.log(g[t]);
-    // }
-    res.render('index', {matched: count, mismatched: miscount, unmatched: w, total: total});
+    var total = y+miscount+count;
+    res.render('index', {matched: count, mismatched: miscount, unmatched: y, total: total});
 });
 app.use(express.static(__dirname + '/public'));
 
