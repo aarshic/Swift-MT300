@@ -9,6 +9,7 @@
     "csv-headers": "^1.0.0",
     "csv-parse": "^4.3.4",
     "csv-parser": "^2.2.0",
+    "ejs": "^2.6.1",
     "eol": "^0.9.1",
     "es6-promise": "^4.2.6",
     "excel4node": "^1.7.0",
